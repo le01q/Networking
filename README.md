@@ -1,2 +1,2 @@
 # Networking
-Basic **networking** in different languages, connections, communication and more.
+Basic **networking** in different languages, connections, communication and more
