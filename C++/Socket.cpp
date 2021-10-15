@@ -127,21 +127,105 @@ ServidorSocket :: ServidorSocket(int puerto, int conexiones, TipoSocket type)
 
 Socket* ServidorSocket :: Aceptar()
 {
-    
+    SOCKET nuevo_socket = accept(s_, 0, 0);
+
+    if (nuevo_socket == INVALID_SOCKET)
+    {
+        int RC = WSAGetLastError();
+
+        if (RC == WSAEWOULDBLOCK)
+        {
+            return 0;
+        } else {
+            throw "Socket invalido";
+        }
+    }
+
+    Socket* r = new Socket(nuevo_socket);
+
+    return r;
+
 }
 
 ClienteSocket :: ClienteSocket(const std :: string& host, int puerto) : Socket()
 {
-    //...
+    std :: string error;
+
+    hostent *he;
+
+    if ((he = gethostbyname(host.c_str())) == 0)
+    {
+        error = strerror(errno);
+        throw error;
+    }
+
+    sockaddr_in addr;
+
+    addr.sin_family = AF_INET;
+    addr.sin_port = htons(puerto);
+    addr.sin_addr = * ((in_addr *) he -> h_addr);
+    memset(& (addr.sin_zero), 0, 8);
+
+    if (:: connect (s_, (sockaddr *)&addr, sizeof(sockaddr)))
+    {
+        error = strerror(WSAGetLastError());
+        throw error;
+    }
 }
 
 SocketSelected :: SocketSelected(Socket const * const s1, Socket const * const s2, TipoSocket type)
 {
-    //...
+    FD_ZERO(&fds_);
+    FD_SET(const_cast <Socket*> (s1) -> s_, &fds_);
+
+    if (s2)
+    {
+        FD_SET(const_cast <Socket*> (s2) -> s_, &fds_);
+    } 
+
+    TIMEVAL tiempoValor;
+    
+    tiempoValor.tv_sec = 0;
+    tiempoValor.tv_usec = 1;
+
+    TIMEVAL *pTiempoValor;
+
+    type == SocketDesbloqueado ? pTiempoValor = &tiempoValor : pTiempoValor = 0; 
+
+    if (select (0, &fds_, (fd_set*) 0, (fd_set*) 0, pTiempoValor) == SOCKET_ERROR)
+        throw "Error en seleccionar";
+}
+
+std :: string Socket :: RecibirBytes()
+{
+    std::string ret;
+    char buf[1024];
+ 
+    while (1) {
+    u_long arg = 0;
+    
+    if (ioctlsocket(s_, FIONREAD, &arg) != 0)
+      break;
+
+    if (arg == 0)
+      break;
+
+    if (arg > 1024) arg = 1024;
+
+    int rv = recv (s_, buf, arg, 0);
+    if (rv <= 0) break;
+
+    std::string t;
+
+    t.assign (buf, rv);
+    ret += t;
+  }
+ 
+  return ret;
 }
 
 bool SocketSelected :: Legible(Socket const* const s)
 {
-    //...
+    if (FD_ISSET(s -> s_, &fds_)) return true;
+        return false;
 }
-
