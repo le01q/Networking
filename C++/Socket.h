@@ -18,7 +18,9 @@ class Socket
     virtual ~ Socket();
     Socket(const Socket&);
     Socket & operator = (Socket&);
+
     std :: string RecibirLinea();
+    std :: string RecibirBytes();
 
     void Cerrar();
 
