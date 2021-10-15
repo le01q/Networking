@@ -63,34 +63,71 @@ void Socket :: Cerrar()
     closesocket(s_);
 }
 
-std :: string Socket :: RecibirBytes()
-{
-    //...
-}
-
 std :: string Socket :: RecibirLinea()
 {
-    //...
+    std :: string ret;
+
+    while (1)
+    {
+        char r;
+
+        switch (recv(s_, &r, 1, 0))
+        {
+            case 0: return ret;
+            case -1: return "";
+
+        }
+        ret += r;
+        if (r == '\n') return ret;
+    }
 }
 
 void Socket :: EnviarLinea(std :: string s)
 {
-    //...
+    s += '\n';
+    send(s_, s.c_str(), s.length(), 0);
 }
 
 void Socket :: EnviarBytes(const std :: string& s)
 {
-    //...
+    send(s_, s.c_str(), s.length(), 0);
 }
 
 ServidorSocket :: ServidorSocket(int puerto, int conexiones, TipoSocket type)
 {
-    //...
+    sockaddr_in sa;
+
+    memset(&sa, 0, sizeof(sa));
+
+    sa.sin_family = PF_INET;
+    sa.sin_port = htons(puerto);
+
+    s_ = socket(AF_INET, SOCK_STREAM, 0);
+
+    if (s_ == INVALID_SOCKET)
+    {
+        throw "Socket invalido";
+    }
+
+    if (type == SocketDesbloqueado)
+    {
+        u_long arg = 1;
+        ioctlsocket(s_, FIONBIO, &arg);
+    }
+
+    // Enlazar el socket a la dirección de Internet.
+    if (bind(s_, (sockaddr *)&sa, sizeof(sockaddr_in)) == SOCKET_ERROR)
+    {
+        closesocket(s_);
+        throw "Socket invalido";
+    }
+
+    listen(s_, conexiones);
 }
 
 Socket* ServidorSocket :: Aceptar()
 {
-    //...
+    
 }
 
 ClienteSocket :: ClienteSocket(const std :: string& host, int puerto) : Socket()
