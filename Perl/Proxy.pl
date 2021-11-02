@@ -57,7 +57,7 @@ sub ip_cliente {
 sub clienteValido {
     my $cliente = shift;
     my $ip_cliente = ip_cliente($cliente);
-    return grep { $_ eq $ip_cliente } @allowed_ips;
+    return grep { $_ eq $ip_cliente } @ip_validas;
 }
 
 print "Alojado en: 0.0.0.0:1080\n";
