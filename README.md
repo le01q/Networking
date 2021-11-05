@@ -14,4 +14,4 @@
   - [Scala](https://github.com/le01q/Networking/tree/main/Scala)
   - [C](https://github.com/le01q/Networking/tree/main/C) made by [manu](https://github.com/manucabral)
   - [C-Sharp](https://github.com/le01q/Networking/tree/main/C-Sharp)
-  - [Pascal]((https://github.com/le01q/Networking/tree/main/Pascal)
+  - [Pascal](https://github.com/le01q/Networking/tree/main/Pascal)
