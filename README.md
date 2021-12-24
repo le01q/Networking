@@ -15,3 +15,9 @@
   - [C](https://github.com/le01q/Networking/tree/main/C) made by [manu](https://github.com/manucabral)
   - [C-Sharp](https://github.com/le01q/Networking/tree/main/C-Sharp)
   - [Pascal](https://github.com/le01q/Networking/tree/main/Pascal)
+  - [TypeScript](https://github.com/le01q/Networking/tree/main/TypeScript)
+ 
+ ## Changelog
+ **v2.1** - Dec. 23th, 2021.
+   - Added **TypeScript** socket. (it'll be updated or used for some new examples incoming)
+   - Removed unused vars and files.
