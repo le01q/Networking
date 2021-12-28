@@ -1,0 +1,4 @@
+/Rust/target/
+/Rust/**/*.rs.bk
+/Rust/Cargo.lock
+.metals
