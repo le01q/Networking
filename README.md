@@ -16,6 +16,7 @@
   - [C-Sharp](https://github.com/le01q/Networking/tree/main/C-Sharp)
   - [Pascal](https://github.com/le01q/Networking/tree/main/Pascal)
   - [TypeScript](https://github.com/le01q/Networking/tree/main/TypeScript)
+  - [Rust](https://github.com/le01q/Networking/tree/main/Rust)
  
  ## Changelog
  **v2.1** - Dec. 23th, 2021.
