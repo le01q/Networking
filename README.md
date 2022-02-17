@@ -1,6 +1,6 @@
 <div align="center">
   <img src="https://i.imgur.com/QzvVJFn.png"><br>
- <img src="https://img.shields.io/badge/1.0-Multilanguage%20networking-informational" alt="Multilanguage"></br>
+ <img src="https://img.shields.io/badge/2.0-Multilanguage%20networking-informational" alt="Multilanguage"></br>
  Basic networking multilanguage scripts, connections, servers, clients, communication and more.
 </div>
 
